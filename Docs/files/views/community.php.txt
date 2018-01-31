@@ -1,0 +1,124 @@
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="keywords" content=""/>
+    <meta name="description" content="We provide strategies, expertise, and technology to business who want to succeed on the web." />
+
+    <title>Community</title>
+
+    <!-- set html base path -->
+    <base href="<?=hrefbase?>">
+
+    <link rel="stylesheet" href="<?=$this->linkFile('style','css');?>" type="text/css" />
+    <link rel="stylesheet" href="<?=$this->linkFile('menu-styles','css');?>" type="text/css" />
+    <link rel="icon" href="http://www.wyredin.com/sites/wyredin/images/fav.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109523896-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-109523896-1');
+    </script>
+
+</head>
+
+<body>
+<?include($this->linkFile('menu','php'));?>
+<div class="header-image-inside col-xs-12 no-padding" style="background-image: url('images/fp-header.png')">
+    <div class="col-xs-0 col-sm-1"></div>
+    <div class="header-text-inside col-xs-12 col-sm-10">
+        <h1>Community</h1>
+    </div>
+</div>
+<div class="community col-xs-12 no-padding">
+    <div class="col-xs-0 col-sm-1"></div>
+    <div class="col-xs-12 col-sm-10">
+      <h2>We believe personal and company growth go hand in hand.</h2>
+        At <span class="accent-color">Wyred [Insights]</span>, we aim to create a cohesive tech community by providing our employees, partners, and clients the tools and environment they need to build their vision on the web or otherwise. Our belief is that as our community grows and progresses, so does the company. <span class="accent-color">Wyred [Insights]</span> employees are encouraged to share their ideas and everyone's voice gets to be heard. We want to hear those creative processes so we can keep doing better than we have before and provide the most insightful solutions possible.
+    </div>
+</div>
+
+
+
+
+
+
+<div>
+    <div class="mentorship mentorship-margin col-xs-12">
+        <h2 class="text-center">The Wyred [Mentorship] Program</h2>
+        <div class="col-lg-6 col-xs-12 margin-fix">
+            <div style="background-image: url(images/andrew-parker.png);" class="article-image"></div>
+        </div>
+        <div class="col-xs-0 col-sm-1"></div>
+        <div class="col-lg-5 col-xs-12">
+            <h3 class="accent-color text-center">Why Us?</h3>
+            <p> 
+            Our company culture is based on <span class="accent-color">empathy</span>, <span class="accent-color">respect</span>, <span class="accent-color">cooperation</span>, and <span class="accent-color">openess</span>.
+            <br>
+            <br>
+            We emphasize working with young individuals who have the desire to learn, passion for what they do, initiative, and the desire to actively contribute others.
+            </div>     
+        </div> 
+    </div>
+    <div class="mentorship col-xs-12">
+        <div class="col-lg-6 col-xs-12 special-float">
+            <div style="background-image: url(images/torrey.png);" class="article-image"></div>
+        </div>
+            <div class="col-lg-5 col-xs-12">
+                <div class="flush-center2">
+                    <h3 class="accent-color speical-float2">What will you learn?</h3>
+                    <p class="speical-float2">            
+                    - Build your technical and soft skills
+                    <br>
+                    - Real world experience
+                    <br>
+                    - Collaborate with various departments
+                    <br>
+                    - Develop leadership skills
+                    <br>
+                    - Improve presentation skills
+                    <br>
+                    - Build a corporate culture
+                    <br>
+                    - Acquire and retain clients
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="col-xs-12 no-padding alt-body-container">
+    <div class="col-xs-0 col-sm-1"></div>
+    <div class="col-xs-12 col-sm-10">
+        <h1 class="com-h1">
+            Build your resume while making an impact.
+        </h1>
+        <h2>
+            Apply for an internship today.
+        </h2>
+        <div class="flush-center">
+            <a href="https://www.indeedjobs.com/wyred-insights/_hl/en_US" target="_blank" class="button-light">View Available Positions</a>
+        </div>
+    </div>
+</div>
+<?include($this->linkFile('footer','php'));?>
+</body>
+
+
+
+
+</html>

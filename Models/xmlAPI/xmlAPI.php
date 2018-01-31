@@ -1,0 +1,149 @@
+<?php
+/**
+* xmlAPI.php, XML/API class
+* 
+* xmlAPI.php contains the xmlAPI class definition 
+* 
+* This is the version 1.0 of documentation
+* @author Tim Berfield <tberfield@prodasol.com>
+* @version 1.0
+* @package FireBalancer
+*/
+       
+/**
+* xmlAPI extends base XML Object class
+* Creates nodes and formats the request
+* @package Models
+* @subpackage bpXML
+*/
+
+class xmlAPI extends xmlOBJ  {
+    
+    private $ReqName;
+
+    public $server_url;
+
+    //-------------------------------------------------------------------------------------------
+
+	/**
+    * xmlAPI constructor
+    * 
+    * @param mixed $apiname API to call
+    * @param mixed $apikey API server credentials
+    * @param mixed $outtype Should be xml or json
+    * @param mixed $args Array of arguments to pass
+    */
+    public function __construct($apiname=null, $apikey=null, $outtype='xml', $args=null) {
+        // store the arguments
+    	$this->userData = $args;
+    
+        // authent data
+        $this->ReqName      = $apiname;
+		$this->apikey       = $apikey;
+        $this->outputtype   = $outtype ? $outtype : 'xml';
+	}
+
+    //-------------------------------------------------------------------------------------------
+
+    private function padField($data,$tabs) {
+        return str_pad($data, strlen($data) + $tabs,"\t",STR_PAD_LEFT)."\r\n";
+    }
+        
+    //-------------------------------------------------------------------------------------------
+    
+    private function addNodes($data, $tabs) {
+        
+        $nodes = '';
+        
+        foreach ($data as $key => $value) {
+            $startKey = $key;
+            $endKey = $key;
+            if ( is_numeric($key) ) {
+                $startKey = "Row ID='$key'";
+                $endKey = "Row";
+            }
+            if ( is_array($value) ) {
+                $nodes .= $this->padField("<$startKey>",$tabs);
+                $nodes .= $this->addNodes($value, $tabs + 1);
+                $nodes .= $this->padField("</$endKey>",$tabs);
+            }
+            else {
+                $nodes .= $this->padField("<$key><![CDATA[".$value."]]></$key>",$tabs);
+            }
+        }
+        return $nodes;
+    }
+
+	//-------------------------------------------------------------------------------------------
+
+    /**
+     * if transit is set true (default) use sendPost class to call API server
+     */
+    public function send() {
+
+        $this->createDoc();
+
+        if ($this->transmit) {
+            $this->xmit = new sendPost($this->reqDoc);
+            if ($this->server_url) {
+                $this->xmit->server_url = $this->server_url;
+            }
+            // send via sendPost class
+            $this->xmit->post();
+
+            // store response
+            $this->respDoc = $this->xmit->resp;
+
+            // get the response status
+            $this->parseStatus();
+
+            // get list of returned fields
+            $this->createFieldsArray();
+
+            // move to first record
+            $this->next();
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------
+
+	private function createDoc() {
+
+		$this->reqDoc  = "<?xml version = '1.0' standalone='yes'?>\r\n";
+		$this->reqDoc .= "     <Request>\r\n";
+		$this->reqDoc .= "          <Authentication>\r\n";
+		$this->reqDoc .= "               <Version>"._APIVER_."</Version>\r\n";
+
+        // add nodes for older API version
+        if ($this->api_pass) {
+            $this->reqDoc .= "               <UserId>".$this->apikey."</UserId>\r\n";
+            $this->reqDoc .= "               <Password>".$this->api_pass."</Password>\r\n";
+        }
+        else {
+            $this->reqDoc .= "               <apikey>".$this->apikey."</apikey>\r\n";
+        }
+
+        $this->reqDoc .= "               <outputtype>".$this->outputtype."</outputtype>\r\n";
+		$this->reqDoc .= "          </Authentication>\r\n";
+		$this->reqDoc .= "          <Process ID='".$this->ReqName."'>\r\n";
+		$this->reqDoc .= "               <".$this->ReqName.">\r\n";
+        $this->reqDoc .=                    $this->addNodes($this->userData, 3);                
+        $this->reqDoc .= "               </".$this->ReqName.">\r\n";
+		$this->reqDoc .= "          </Process>\r\n";
+		$this->reqDoc .= "     </Request>";
+	}
+
+	//-------------------------------------------------------------------------------------------
+    
+    private function getRowsArray(&$tempArr) {
+
+        $tempArr = array();
+
+        while (!$this->eof){
+            array_push($tempArr,$this->row);
+            $this->next();
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------
+}

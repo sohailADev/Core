@@ -1,0 +1,584 @@
+/* bootstrap overrides */
+
+.no-padding {
+    padding: 0px !important;
+}
+
+body {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size:16px !important;
+}
+
+.flush-center {
+    margin: 0px auto;
+    float: none;
+    text-align: center;
+}
+
+.float-right {
+    float: right !important;
+}
+/* end bootstrap overrides */
+
+
+
+
+/* menu styles */
+.logo {
+    height: 50px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
+}
+
+.menu {
+    z-index: 2;
+    position: absolute !important;
+    padding-top: 30px !important;
+}
+
+.menu-links-container {
+    float: right;
+    text-align: right;
+    padding-top: 20px;
+}
+
+.menu-links-container a {
+    color:#fff;
+    text-decoration: none;
+    padding: 10px;
+    transition: ease-in-out .8s;
+    font-size: 18px;
+}
+
+.menu-links-container a:hover {
+    text-decoration: none !important;
+    transition: ease-in-out .8s;
+    color:rgba(225,225,225,.7);
+    cursor: pointer;
+}
+    /* end menu styles */
+
+/* contact styles */
+
+.contact h3 {
+    color:#0091d6;
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background: none;
+    outline: none;
+    resize: none;
+    border: 0;
+    font-family: 'Helvetica', sans-serif;
+    transition: all .3s;
+    border-bottom: 2px solid #bebed2
+}
+input:focus {
+    border-bottom: 2px solid #0091d6
+}
+
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background: none;
+    outline: none;
+    resize: none;
+    border: 0;
+    font-family: 'Helvetica', sans-serif;
+    transition: all .3s;
+    border-bottom: 2px solid #bebed2;
+    min-height: 70px;
+}
+textarea:focus {
+    border-bottom: 2px solid #0091d6
+}
+
+p:before {
+    content: attr(type);
+    display: block;
+    margin: 28px 0 0;
+    font-size: 14px;
+    color: #5a5a5a
+}
+.contact button {
+    float: right;
+    padding: 8px 12px;
+    margin-top: 45px;
+    margin-bottom: 20px;
+    font-family: 'Helvetica', sans-serif;
+    border: 2px solid #0091d6;
+    background: 0;
+    color: #0091d6;
+    cursor: pointer;
+    transition: all .3s
+}
+.pdf-button {
+    float: left;
+    padding: 8px 12px;
+    margin-top: 45px;
+    margin-bottom: 20px;
+    font-family: 'Helvetica', sans-serif;
+    border: 2px solid #0091d6;
+    background: 0;
+    color: #0091d6;
+    cursor: pointer;
+    transition: all .3s
+}
+
+
+
+.whats-new{
+color: #fff;
+}
+
+.example-div {
+    display: none;
+}
+
+.menu-links-container a:hover + div .example-div {
+    display:block;
+    position: absolute;
+    z-index: 2; 
+}
+
+
+
+
+
+
+button:hover {
+    background: #0091d6;
+    color: #fff
+}
+.contact-extra {
+    content: 'Hi';
+    position: relative;
+    background: #50505a;
+    color: #fff;
+    width: 70%;
+    padding: 16px 4px 16px 4;
+    border-radius: 6px;
+    margin:0px auto;
+    float: left;
+    font-size: 16px;
+    margin-top: 40px;
+}
+.contact span {
+    margin: 0 5px 0 15px
+}
+
+.form {
+    background: #eee;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    font-family: 'Helvetica', sans-serif;
+    position: relative
+}
+
+
+
+
+/* end contact styles */
+
+.community {
+    font-size: 18px;
+    line-height: 1.5;
+    padding-bottom: 30px;
+}
+
+.community h2 {
+    text-align: center;
+    color: #0091d6;
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.com-h1 {
+    font-size: 25px !important;
+}
+.com-h2{
+    font-size: 20px !important;
+    font-weight: 300 !important;
+}
+
+.accent-color {
+    color:#0091d6;
+}
+
+.blog-post {
+    margin-bottom:40px;
+}
+
+.header-image {
+    height: 800px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+.header-text {
+    color:#fff;
+    margin-top:250px;
+    font-size: 18px;
+}
+
+.header-text-inside {
+    color:#fff;
+    margin-top:200px;
+    font-size: 18px;
+    margin-bottom: 150px;
+}
+
+.header-text-inside h1 {
+    color: #fff;
+    font-size: 80px;
+    font-family: "Helvetica Neue", sans-serif;
+    text-align: center;
+}
+
+
+.header-text h1 {
+    color: #fff;
+    font-size: 80px;
+    font-family: "Helvetica Neue", sans-serif;
+}
+.header-text h2 {
+    color: #fff;
+    font-weight: 100;
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 50px;
+    margin-bottom:30px;
+}
+
+.header-text .button-light {
+    margin-top:80px;
+}
+
+.button-light {
+    padding:20px;
+    color: #fff;
+    text-decoration: none;
+    border: 2px solid #fff;
+    display: inline-block;
+    transition: ease-in-out .8s;
+    font-size: 18px;
+}
+
+.button-light:hover {
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    background: #0091d6;
+    border: 2px solid #0091d6;
+    transition: ease-in-out .8s;
+}
+
+.intro-container h3 {
+    text-align: center;
+    color: #0091d6;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-weight: 200;
+}
+
+.mentorship {
+    background-color: #EAEDED;
+    
+
+}
+.mentorship-margin {
+    margin-top: 30px;
+}
+
+.mentorship h2 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.mentorship h3 {
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-top: 30px;
+}
+.mentorship p {
+    font-size: 23px;
+}
+.special-float {
+    float: right !important;
+}
+.special-float2 {
+    float: left !important;
+}
+.article-image {
+    min-height: 450px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: -60px;
+}
+.margin-fix {
+    margin-left: -30px;
+}
+.flush-center2 {
+    float: none;
+    margin: 0px auto;
+    width: 75%;
+}
+.toolset h3 {
+    text-align: center;
+    color: #0091d6;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-weight: 200;
+}
+
+.services .fa {
+    font-size: 80px;
+    text-align: center;
+    color: #0091d6;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.alt-light-background {
+    background: rgba(0,145,214,.1);
+}
+
+.alt-body-container {
+    background: #0091d6; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#005fc1, #0091d6); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#005fc1, #0091d6); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#005fc1, #0091d6); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#005fc1, #0091d6); /* Standard syntax */
+    margin-top: 30px;
+    color: #fff;
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+}
+.alt-body-container h1 {
+    color:#fff;
+    font-size: 100px;
+    text-align: center;
+}
+
+.alt-body-container h2 {
+    color:#fff;
+    font-size: 40px;
+    text-align: center;
+    font-weight: 200 !important;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.alt-body-container span {
+    font-weight: 100;
+    letter-spacing: 10px;
+}
+
+.alt-body-container .button-light:hover {
+    cursor: pointer;
+    text-decoration: none;
+    color: #0091d6;
+    background: #fff;
+    border: 2px solid #fff;
+    transition: ease-in-out .8s;
+}
+
+.service {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+
+.tool {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+
+.float-right .tool-image {
+    background-position: left;
+}
+
+.tool-image {
+    height: 60px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    -webkit-animation: hue 60s infinite linear;
+}
+
+.bottomh1 {
+    font-size: 60px !important;
+}
+
+.footer-logo {
+    height: 30px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
+    margin-bottom: 30px;
+}
+
+footer {
+    background: #222;
+    padding: 40px;
+}
+.footer-contact-container {
+    float:right;
+    color: #fff;
+}
+
+footer a {
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+@media (min-width: 200px) and (max-width: 767px) {
+
+    .header-image {
+        height: 650px;
+    }
+
+    .header-text {
+        margin-top:100px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .header-text h1 {
+        color: #fff;
+        font-size: 38px;
+        font-family: "Helvetica Neue", sans-serif;
+        margin-top: 20px;
+    }
+    .header-text h2 {
+        color: #fff;
+        font-weight: 100 !important;
+        font-family: "Helvetica Neue", sans-serif;
+        font-size: 28px;
+        margin-bottom:30px;
+    }
+
+
+
+    .header-text-inside {
+        margin-top:100px;
+        margin-bottom: 50px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .header-text-inside h1 {
+        color: #fff;
+        font-size: 40px;
+        font-family: "Helvetica Neue", sans-serif;
+    }
+    .header-text-inside h2 {
+        color: #fff;
+        font-weight: 100 !important;
+        font-family: "Helvetica Neue", sans-serif;
+        font-size: 40px;
+        margin-bottom:30px;
+    }
+
+    .service {
+        margin-top: 0px;
+        margin-bottom: 30px;
+    }
+    .alt-body-container .com-h1 {
+        font-size: 20px !important;
+    }
+    .alt-body-container h1 {
+        color:#fff;
+        font-size: 40px !important;
+    }
+
+    .alt-body-container h2 {
+        font-size: 24px;
+    }
+
+    .alt-body-container {
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+    }
+
+    .float-right .tool-image {
+        background-position: center;
+    }
+
+    .tool-image {
+        margin-bottom:30px;
+    }
+
+    .footer-logo {
+        background-position: center;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+    .bottomh1 {
+        font-size: 30px !important;
+    }
+
+    .contact-extra {
+        float: none;
+        text-align: center;
+        width: 100%;
+        border-radius: 0px;
+    }
+    .contact h3 {
+        text-align: center;
+    }
+
+    .contact {
+        padding:20px !important;
+    }
+
+    .community {
+        padding: 20px !important;
+    }
+    
+    .main-text1 {
+        padding-left: .2cm !important;
+        margin-bottom: 10px !important;
+    }
+    .main-text {
+        padding-left: .2cm !important;
+    }
+
+    .margin-fix {
+    margin-left: 0px;
+    }
+    .mentorship p {
+        font-size:16px;
+    }
+    .article-image {
+    min-height: 250px;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0px;
+
+}
+
+
+
+}

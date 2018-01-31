@@ -1,0 +1,90 @@
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="keywords" content=""/>
+    <meta name="description" content="We provide strategies, expertise, and technology to business who want to succeed on the web." />
+
+    <title>What's New at Wyred Insights</title>
+
+    <!-- set html base path -->
+    <base href="<?=hrefbase?>">
+
+    <link rel="stylesheet" href="<?=$this->linkFile('style','css');?>" type="text/css" />
+    <link rel="stylesheet" href="<?=$this->linkFile('menu-styles','css');?>" type="text/css" />
+    <link rel="icon" href="http://www.wyredin.com/sites/wyredin/images/fav.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109523896-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-109523896-1');
+    </script>
+
+</head>
+
+<body>
+<?include($this->linkFile('menu','php'));?>
+<div class="header-image-inside col-xs-12 no-padding" style="background-image: url('images/fp-header.png')">
+    <div class="col-xs-0 col-sm-1"></div>
+    <div class="header-text-inside whats-new col-xs-12 col-sm-10">
+        <h1>What's New?</h1>
+    </div>
+</div>
+<div class="community col-xs-12 no-padding">
+    <div class="col-xs-0 col-sm-1"></div>
+    <div class="col-xs-12 col-sm-10">
+      <h2>Latest Updates</h2>
+        <div class="blog-post">
+          <p align="left">October 6th, 2017</p>
+          <h3 class="accent-color">What is Blockchain Technology?</h3>
+            Many people confuse Bitcoin with Blockchain since it is a crucial, underlying technology used by Bitcoin and other cryptocurrencies.
+            In reality Bitcoin is one the first and best known applications to run on a Blockchain network.
+            <br/><br/>
+            Many experts are calling this transformative technology the next internet.
+            Andreas M. Antonopoulos, Author of "Mastering Bitcoin," has called Blockchain technology the largest, public deployment of cryptography in history.
+            <br/><br/>
+            Simply put, Blockchain is an encrypted dataset, or ledger, distributed over a self-governing network of computers operating in consensus with no centralized authority.
+            Every transaction in the ledger is linked to the one before it, encrypted and distributed over the network.
+            Any change to the ledger would require the entire network to be hacked; a virtually impossible feat, requiring more computing power than most entire countries posses.
+            <br/><br/>
+            <h4>How is Wyred [Insights] putting this Technology to Work?</h4>
+            <br/>
+            - While there are nearly infinite uses for the technology, our current focus is on our clients' most immediate needs while still working on newer, innovative projects.
+            <br/>
+            - By enabling our payment gateway system and APIs to use popular cryptocurrencies, our clients will be able to accept Bitcoin, Ether, Zcash and many others as they are adopted.
+            <br/>
+            - Creating new apps to run on the Ethereum Blockchain, so our software will run without an infrastructure and without downtime.
+            <br/>
+            - Working on backup solutions where customer data will be stored on the Blockchain, making it immutable; safe from hackers, theft or equipment failure.
+        </div>
+
+        <!--<div class="pdf-button">
+            <a href="/media/blockchain.pdf"><i class="fa fa-file" aria-hidden="true"></i> PDF</a>
+        </div>-->
+    </div>
+</div>
+<div class="col-xs-12 no-padding alt-body-container">
+    <div class="col-xs-0 col-sm-1"></div>
+    <div class="col-xs-12 col-sm-10">
+        <h2>
+            Connect with Wyred [Insights] to stay up to date with news and events.
+        </h2>
+        <div class="flush-center">
+            <a href="/contact" target="_blank" class="button-light">Contact</a>
+        </div>
+    </div>
+</div>
+<?include($this->linkFile('footer','php'));?>
+</body>
+
+
+
+
+</html>

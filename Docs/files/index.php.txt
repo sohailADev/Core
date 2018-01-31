@@ -1,0 +1,301 @@
+<?php
+/**
+* index.php, MVC-Bootstrap file
+*
+* index.php loads WebApp each time it is called
+* 
+* Set these options to debug
+* error_reporting(E_ALL);
+* ini_set('display_errors', 1);
+*/
+
+// ------------------------------------------------------
+
+//die(print_r($_SERVER));
+
+/**
+ * Changelog
+ * 10/17/2017   added no host and delimited hostname support
+ * 10/30/2017   fields from $config now stored in WebApp
+ */
+
+// ------------------------------------------------------
+
+/**
+ * Extract hostname from a URL.
+ * Return the hostname or full address if using a custom domain.
+ *
+ * @param mixed $url
+ * @return string $host
+*/
+function getConfig($url) {
+    // break down the requested URL
+    $parts      = explode(".", $url);
+    $pcount     = count($parts);
+    $hostname   = $parts[0];
+    $domain     = "$parts[1].$parts[2]";
+
+    // no hostname
+    if ($pcount == 2) {
+        $domain   = "$parts[0].$parts[1]";
+        $hostname = '';
+    }
+
+    // dot delimited hostname
+    if ($pcount > 2) {
+        $domain     = $parts[$pcount-2].".".$parts[$pcount-1];
+        $parts      = array_slice($parts, 0, $pcount - 2);
+        $hostname   = implode(".", $parts);
+    }
+
+    // set defaults
+    $config                         = new stdClass();
+    $config->hostname               = $hostname;
+    $config->controller_path        = "landing-page/";
+    $config->controller             = "home";
+    $config->error_page             = "404";
+    $config->allowed_controllers    = array("home","404","checkout","upsell","confirmation","privacy","terms-conditions");
+    $config->mode                   = "test";
+    $config->site_path              = "default";
+    $config->default_site_path      = "_default";
+    $config->api_version            = "1.0";
+
+    // set specific fields for each site
+    switch ($domain) {
+        case 'ehostedcarts.com':
+            switch ($hostname) {
+                case 'ji':
+                case 'jewelryimagination':
+                case 'jewelryimaginations':
+                    $config->mode           = "live";
+                    $config->site_path      = 'jewelryimagination';
+                    $config->site_dir       = _BASE_PATH_ . 'sites/' . $config->site_path;
+                    $config->api_key        = "jinnov";
+                    $config->api_pass       = "J1w47yzX";
+                    $config->api_version    = '1.0';
+                    $config->api_server     = 'api2.focalpoynt.com';
+                    $config->api_server_v2  = '10.10.20.31';
+                    $config->clientid       = 224;
+                    $config->siteid         = 'jewelryimagination'; // unique id for this site, no matter what the URL used
+                    break;
+                default:
+                    $host = 'www';
+            }
+            break;
+
+        case 'test.com':
+            $config->mode           = "test";
+            $config->site_path      = 'jewelryimagination';
+            $config->site_dir       = _BASE_PATH_ . 'sites/' . $config->site_path;
+            $config->api_key        = "jinnov";
+            $config->api_pass       = "J1w47yzX";
+            $config->api_version    = '1.0';
+            $config->api_server     = 'api2.focalpoynt.com';
+            $config->api_server_v2  = '10.10.20.31';
+            $config->clientid       = 224;
+            $config->siteid         = 'jewelryimagination'; // unique id for this site, no matter what the URL used
+            break;
+
+        case 'backithere.com':
+            $config->mode           = "test";
+            $config->site_path      = 'bih';
+            $config->site_dir       = _BASE_PATH_ . 'sites/' . $config->site_path;
+            $config->api_key        = "wredinAPI777";
+            $config->api_pass       = "";
+            $config->api_version    = '2.0';
+            $config->api_server     = '10.10.20.31';
+            $config->clientid      = 'bih'; // clientid
+            $config->controller     = "home";
+            $config->controller_path = "bih/";
+            break;
+
+        case 'zero8.com':
+            $config->mode           = "test";
+            $config->site_path      = 'dash';
+            $config->site_dir       = _BASE_PATH_ . 'sites/' . $config->site_path;
+            $config->api_key        = "\$p1nD@shK533Qs";
+            $config->api_pass       = "";
+            $config->api_version    = '2.0';
+            $config->api_server     = '10.10.20.31';
+            $config->clientid      = 'zero8'; // clientid
+            $config->controller     = "login";
+            $config->controller_path = "_zero8/";
+            break;
+
+        case 'wyredinsights.com':
+        case 'wyredinsight.com':
+        case 'wyredin.com':
+            switch ($hostname) {
+                case 'platform':
+                    $config->mode           = "test";
+                    $config->site_path      = 'platform';
+                    $config->site_dir       = _BASE_PATH_ . 'sites/' . $config->site_path;
+                    $config->api_key        = "wredinAPI777";
+                    $config->api_pass       = "";
+                    $config->api_version    = '2.0';
+                    $config->api_server     = '10.10.20.31';
+                    $config->clientid      = 'wyredinsights'; // clientid
+                    $config->controller     = "login";
+                    $config->controller_path = "platform/";
+                    break;
+                case 'api':
+                case 'admin':
+                    $config->mode           = "test";
+                    $config->site_path      = 'platform';
+                    $config->site_dir       = _BASE_PATH_ . 'sites/' . $config->site_path;
+                    $config->api_key        = "wredinAPI777";
+                    $config->api_pass       = "";
+                    $config->api_version    = '2.0';
+                    $config->api_server     = '10.10.20.31';
+                    $config->clientid      = 'wyredinsights'; // clientid
+                    $config->controller_path = "platform/";
+                    break;
+                default:
+                    $config->mode           = "test";
+                    $config->site_path      = 'wyredin';
+                    $config->site_dir       = _BASE_PATH_ . 'sites/' . $config->site_path;
+                    $config->api_key        = "wredinAPI777";
+                    $config->api_pass       = "";
+                    $config->api_version    = '2.0';
+                    $config->api_server     = '10.10.20.31';
+                    $config->clientid      = 'wyredinsights'; // clientid
+                    $config->controller_path = "wyredin/";
+                    break;
+            }
+            break;
+
+
+        case 'focalpoynt.com':
+            switch ($hostname) {
+                case 'cp':
+                    $config->mode           = "test";
+                    $config->site_path      = 'fpcontrol';
+                    $config->site_dir       = _BASE_PATH_ . 'sites/' . $config->site_path;
+                    $config->api_key        = "wredinAPI777";
+                    $config->api_pass       = "";
+                    $config->api_version    = '2.0';
+                    $config->api_server     = '10.10.20.31';
+                    $config->clientid      = 'focalpoynt'; // clientid
+                    $config->controller     = "home";
+                    $config->controller_path = "fpcontrol/";
+                    break;
+            }
+            break;
+
+
+        case 'mikeatclarkpc.com':
+            switch ($hostname) {
+                default:
+                    $config->mode           = "test";
+                    $config->site_path      = 'mikeatclarkpc';
+                    $config->site_dir       = _BASE_PATH_ . 'sites/' . $config->site_path;
+                    $config->api_key        = "59Dd69677f8b9a0a058B45";
+                    $config->api_pass       = "";
+                    $config->api_version    = '2.0';
+                    $config->api_server     = '10.10.20.31';
+                    $config->clientid      = 'mikebrown0001'; // clientid
+                    $config->controller_path = "_common/";
+                    $config->socketlabs     = array("serverid"  => '17766',
+                                                    "apikey"    => 'm5R2QpMw6s7FCi93Nxb4',
+                                                    "subject"   => 'ClarkPC Lead',
+                                                    "to"        => '7754501956@messaging.sprintpcs.com',
+                                                    "to_name"   => 'Mike',
+                                                    "from"      => 'leads@mikeatclarkpc.com'
+                                                );
+                    break;
+            }
+            break;
+
+        case 'zoomaway.com':
+        case 'zoomawayinc.com':
+        case 'zoomawaytravel.com':
+        case 'zoomawaytravelinc.com':
+            switch ($hostname) {
+                default:
+                    $config->mode           = "test";
+                    $config->site_path      = 'zoomawayinc';
+                    $config->site_dir       = _BASE_PATH_ . 'sites/' . $config->site_path;
+                    $config->api_key        = "59Dd69677f8b9a0a058B45";
+                    $config->api_pass       = "";
+                    $config->api_version    = '2.0';
+                    $config->api_server     = '10.10.20.31';
+                    $config->clientid      = 'zoomaway'; // clientid
+                    $config->controller_path = "_zoomaway/";
+                    break;
+            }
+            break;
+
+        case 'chapmanhospitalitygroup.com':
+        case 'chaphg.com':
+            switch ($hostname) {
+                default:
+                    $config->mode           = "live";
+                    $config->site_path      = 'chapmanhospitalitygroup';
+                    $config->site_dir       = _BASE_PATH_ . 'sites/' . $config->site_path;
+                    $config->api_key        = "59Dd69677f8b9a0a058B45";
+                    $config->api_pass       = "";
+                    $config->api_version    = '2.0';
+                    $config->api_server     = '10.10.20.31';
+                    $config->clientid      = 'chaphg'; // clientid
+                    $config->controller_path = "chaphg/";
+                    break;
+            }
+            break;
+    }
+    return $config;
+}
+
+// ------------------------------------------------------
+
+// set system base path
+define ('_BASE_PATH_',  "/var/www/html/projects/");
+
+// get site config as an object
+$config = getConfig($_SERVER['HTTP_HOST']);
+
+// load the site config
+require_once(_BASE_PATH_."models/mod_xmlAPI.php");
+require_once(_BASE_PATH_."base/WebApp.php");
+
+// set api->config->mode to debug for full error reporting
+if ($config->mode == 'debug') {
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);    
+}
+
+// set default paths and controller pages
+define ('appname',          "eHostedCarts");
+define ('_HOST_',           isset($config->hostname)        ? $config->hostname : null);
+define ('_APIKEY_',         isset($config->api_key)         ? $config->api_key : null);
+define ('_APIPASS_',        isset($config->api_pass)        ? $config->api_pass : null);
+define ('_APIVER_',         isset($config->api_version)     ? $config->api_version : null);
+define ('_SERVER_URL_',     isset($config->api_server)      ? $config->api_server : null);
+define ('_SECURE_DOMAIN_',  isset($config->secure_domain)   ? $config->secure_domain : null);
+define ('_CTRL_PATH_',      isset($config->controller_path) ? $config->controller_path : 'landing-page/');
+define ('_CTRL_NAME_',      isset($config->controller)      ? $config->controller : 'home');
+define ('_ERROR_PAGE_',     isset($config->error_page)      ? $config->error_page : '404');
+define ('_PATH_',           $config->site_dir . "/");
+define ('_VIEW_PATH_',      $config->site_dir . "/views/");
+define ('_DEF_PATH_',       _BASE_PATH_ . "sites/$config->default_site_path/");
+define ('site',             _BASE_PATH_ . "sites/$config->site_path/");
+define ('_DEFVIEW_PATH_',   _BASE_PATH_ . "sites/$config->default_site_path/views/");
+define ('_VIEW_URL_',       "/sites/" . $config->site_path."/");
+define ('_DEFVIEW_URL_',    "/sites/$config->default_site_path/");
+define ('hrefbase',         "/sites/$config->site_path/");
+
+// create the application object
+$app = new WebApp($_GET);
+$app->config    = (array)$config;
+$app->default   = _CTRL_NAME_;
+$app->ctrlExt   = _BASE_PATH_ . 'controllers/' . _CTRL_PATH_ . "extensions/extController.php";
+// set the site mode - should be live or test - use these variables if they should reset
+$app->mode      = $config->mode;
+$app->clientid  = $config->clientid;
+
+// store these values as constants to survive clearData function call
+define ('_mode_',       $config->mode);
+define ('_clientid_',   $config->clientid);
+
+// load the controller from the url or use default
+$app->setController();
+

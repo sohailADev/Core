@@ -1,0 +1,134 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Tim
+ * Date: 11/4/2017
+ * Time: 4:17 PM
+ */
+
+namespace params;
+
+/**
+ * Class Params
+ * @package params
+ *
+ * call with no params uses the URI from the server
+ * call save function to store params found on the session
+ *
+ * example:
+ * $info = new \params\Params($this, $this->controller, null); // save any params that have been passed
+ * $info->persist = true; // default is true, once set, params will not be over-written
+ * $info->storeName = '_url_params'; // default array name
+ * $info->save(); // save the values on the session. i.e. $_SESSION[{storeName}]
+ *
+ */
+class Params {
+    /** @var string $uri - values from URL to parse $uri - usually $_SERVER['REQUEST_URI'] */
+    private $uri;
+
+    /** @var array $params - params as an array */
+    private $params = array();
+
+    /** @var array $params - params as an array */
+    private $controller = 'home';
+
+    /** @var mixed $app - WebApp or session object */
+    private $app;
+
+    /** @var int $limit - max number of params to get */
+    var $limit = 50;
+
+    /** @var string $storeName - name of session array to store params */
+    var $storeName = '_url_params';
+
+    /** @var bool $persist - if true = params persist and cannot be over-written */
+    var $persist = true;
+
+    // ------------------------------------------------------
+
+    /**
+     * Params constructor.
+     *
+     * @param null $controller
+     * @param null $uri
+     */
+    public function __construct($app, $controller = null, $uri = null) {
+        // set the session controller class
+        $this->app = $app;
+        if (!empty($this->app)) {
+            // set a controller name - used to clean up the params
+            $this->controller = $controller ? $controller : $this->controller;
+
+            // set the uri string
+            $this->uri = $uri ? $uri : $_SERVER['REQUEST_URI'];
+            $this->get();
+        }
+    }
+
+    // ------------------------------------------------------
+
+    /**
+     * Save the params on the session / app - this makes the data survive clearData function
+     * @param null $params
+     */
+    public function save($params = null) {
+        if (!$this->persist || ($this->persist && !isset($_SESSION[$this->storeName]))) {
+            $this->app->save($this->storeName, $params ? $params : $this->params);
+        }
+    }
+
+    // ------------------------------------------------------
+
+    /**
+     * get the params passed from via url
+     */
+    private function get() {
+        // strip off the controller and any function / params
+        $parts = explode("/", $this->uri, $this->limit);
+        $index = count($parts);
+
+        // check for any parameters
+        $paramString = trim($parts[$index -1]);
+        if (!empty($paramString) && $paramString != $this->controller) {
+
+            // break out the parameters
+            $params = explode("&", $paramString);
+
+            // strip "{controller}?" or "?" from first parameter
+            $string = $this->controller."?";
+            if (substr($params[0], 0, strlen($string)) == $string) {
+                $params[0] = substr($params[0], strlen($string), strlen($params[0]));
+            } else {
+                if (substr($params[0], 0, 1) == "?") {
+                    $params[0] = substr($params[0], 1, strlen($params[0]));
+                }
+            }
+
+            // loop the params and get the key value pairs
+            $saveParts = array();
+            foreach ($params as $param) {
+                $paramParts = explode("=", $param, 2);
+                if (count($paramParts) == 2) {
+                    $saveParts[$paramParts[0]] = $paramParts[1];
+                }
+            }
+
+            // save the params on the session - this makes the data survive clearData function
+            $this->params = $saveParts;
+        }
+    }
+
+    // ------------------------------------------------------
+
+    /**
+     * Getter function
+     *
+     * @param $field
+     * @return mixed
+     */
+    public function __get($field) {
+        return $this->$field;
+    }
+
+    // ------------------------------------------------------
+}

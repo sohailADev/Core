@@ -1,0 +1,125 @@
+<?php
+/**
+* Config.php, file to hold Config class
+*
+* Config.php loads Config model and should be loaded in index.php
+* Sets the controller path, site mode and defaults.
+*/
+
+namespace config;
+
+/**
+* Class to call the config API and store the results as an object.
+* Lookups are based on hostname or custom_name.
+* 
+*/
+class Config {
+    
+    /** @var string $hostname - Key field to locate site*/
+    public $hostname;
+
+    /** @var string $mode Mode for this site. Should be live or test */
+    public $mode;
+
+    /** @var mixed $rights - Array of controllers this site is allowed to access */
+    public $rights = array();
+    
+    /** @var string $view_path Path to site's views if different from hostname */
+    public $view_path = '';
+
+    /** @var string $default_view_path Default path to views if not in site directory */
+    public $default_view_path = '';
+
+    /** @var string $_default_key API key used to call getConfig, stays default or replaced by API call */
+    public $_default_key = '';
+
+    /** @var string $_default_server API server used to call getConfig, stays default or replaced by API call */
+    public $_default_server = '';
+
+    /** @var string $secure_domain - over ride domain to use ssl cert */
+    public $secure_domain;
+    
+    /** @var string $controller_path Path to site's controller files */
+    public $controller_path = '';
+
+    /** @var mixed $controller Name of starting controller */
+    public $controller = 'home';
+    
+    /** @var string $error_page Location of error page. Might be other than 404 i.e. RMS booking tool */
+    public $error_page = '404';
+
+    //----------------------------------
+
+    /**
+    * Set the hostname and look up the configuration via getConfig
+    * 
+    * @param mixed $hostname - hostname or custom_name
+    * @param mixed $apikey - what apikey to use for the lookup
+    * @param mixed $serverUrl - which api server to use
+    */
+    public function __construct( $hostname, $apikey, $serverUrl ) {
+        $this->hostname         = $hostname;
+        $this->_default_key     = $apikey;
+        $this->_default_server  = $serverUrl;
+        $this->getConfig();
+    }
+
+    //----------------------------------
+
+    /**
+    * Use GetConfig API to lookup the configuration for this site
+    * 
+    * Sets fields in metadata
+    * hostname - same as hostname requested or matches custom_name
+    * controller_path - directory controllers to use are in
+    * controller - the home or starting controller
+    * error_page - controller to use if an error is found
+    * mode - set site mode to test|live
+    * allowed_controllers - list of controllers config is allowed to access
+    * 
+    */
+    private function getConfig() {
+        // call the GetConfig API
+        $args = array('hostname' => $this->hostname);
+        $api = new \xmlAPI('GetConfig', $this->_default_key, 'xml', $args);
+        $api->server_url = $this->_default_server;
+        $api->send();
+
+        // change hostname if found by custom_name
+        $this->hostname = $api->hostname;
+        
+        // save fields in metadata
+        $this->key                  = $api->api_key ? $api->api_key : $this->_default_key;
+        $this->server               = $api->api_server ? $api->api_server : $this->_default_server;
+        $this->controller_path      = $api->controller_path;
+        $this->controller           = $api->controller;
+        $this->error_page           = $api->error_page ? $api->error_page : '404';
+        $this->mode                 = $api->mode ? $api->mode : 'test';
+        $this->site_path            = $api->site_path ? $api->site_path : $this->hostname;
+        $this->default_site_path    = $api->default_site_path;
+        $this->secure_domain        = $api->secure_domain;
+        
+        // set the list of controllers this site can use
+        $this->setRights($api->row);
+    }
+    
+    //----------------------------------
+    
+    /**
+    * Create $rights array from the list of allowed controllers
+    * 
+    * @param mixed $data
+    */
+    private function setRights($data) {
+
+        if (isset($data['allowed_controllers']['Row'][0])) {
+            $list = $data['allowed_controllers']['Row'][0];
+            foreach ($list as $key => $value) {
+                array_push( $this->rights, $value );
+            }
+        }
+    }
+
+    //----------------------------------
+
+}
