@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Assets",
+    "\\Assets\\css",
+    "\\Assets\\js",
+    "\\Assets\\js\\lib",
+    "\\Helpers",
+    "\\Views",
+    "\\Views\\PartialViews",
+    "\\Views\\Posts",
+    "\\Views\\Users"
+  ],
+  "SelectedNode": "\\Views\\Posts\\add.php",
+  "PreviewInSolutionExplorer": false
+}

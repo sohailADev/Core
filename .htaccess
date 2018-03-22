@@ -1,0 +1,19 @@
+#its making sure its enable
+#usually its enalbe by default
+#hosting companies  like imotion also enable this mod_rewrite by default
+# if we put test.phh or only test then it will accept this url
+# truning on the rewrite engine
+# this is our path excluding local host
+  # if it request any file then if that file avaialbe then it will return that file
+  #else it will redirct to index.php file and url=$1 is variable which handle url=text.ph like this /test.php
+<IfModule mod_rewrite.c>
+
+   RewriteEngine on
+
+   RewriteBase /Core
+   RewriteCond %{REQUEST_FILENAME} !-f
+   RewriteCond %{REQUEST_FILENAME} !-d
+
+  RewriteRule  ^(.*)$ index.php?url=$1 [QSA,L]
+
+</IfModule>
